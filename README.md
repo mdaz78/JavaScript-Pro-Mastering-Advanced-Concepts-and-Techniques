@@ -1,4 +1,4 @@
-## JavaScript Pro: Practice Code
+## JavaScript Pro: Mastering Advanced Concepts and Techniques
 
 This repository contains my practice code while taking the course **JavaScript Pro**. All code examples are organized by course sections for easy navigation.
 
