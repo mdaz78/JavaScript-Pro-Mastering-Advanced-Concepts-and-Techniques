@@ -98,3 +98,15 @@ class MyClass {
 const myClass = new MyClass();
 myClass.publicMethod();
 myClass.indirectlyAccessPrivateMethod();
+
+/**
+ * Static initialization block
+ */
+class MyStaticBlock {
+  static {
+    console.log('runs once');
+  }
+  static fun() {
+    console.log('I ran');
+  }
+}
