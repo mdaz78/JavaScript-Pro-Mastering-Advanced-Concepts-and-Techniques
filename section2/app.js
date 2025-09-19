@@ -1,112 +1,116 @@
+const key = 'species';
+
+const pet = {
+  species: 'dog',
+  name: 'Elton',
+  age: 1.5,
+};
+
+pet[true] = 'hello!!!!';
+
+pet.bark = function () {
+  return 'Woof-woof!';
+};
+
+// Mixing Data and Functionalities
+
+// Area of right triangle
+function getTriangleArea(a, b) {
+  return (a * b) / 2;
+}
+
+// Hypotenuse of right triangle
+function getTriangleHypotenuse(a, b) {
+  return Math.sqrt(a ** 2 + b ** 2);
+}
+
+// Using a POJO
+const myTriangle = {
+  a: 3,
+  b: 4,
+  getArea: function () {
+    return (this.a * this.b) / 2;
+  },
+  getHypotenuse: function () {
+    return Math.sqrt(this.a ** 2 + this.b ** 2);
+  },
+};
+
 /**
- * Getters and Setters
+ *
+ *
+ * Classes
+ *
+ *
  */
 
-class Circle {
-  constructor(radius) {
-    this._radius = radius;
+class Triangle {
+  constructor(a, b) {
+    this.a = a;
+    this.b = b;
   }
 
-  get diameter() {
-    return this._radius * 2;
+  getArea() {
+    return (this.a * this.b) / 2;
   }
 
-  set radius(value) {
-    this._radius = value;
+  getHypotenuse() {
+    return Math.sqrt(this.a ** 2 + this.b ** 2);
   }
 }
 
-// ----
-class User {
-  constructor(firstName, lastName) {
-    this._firstName = firstName;
-    this._lastName = lastName;
-  }
-
-  get firstName() {
-    return this._firstName;
-  }
-
-  get lastName() {
-    return this._lastName;
-  }
-
-  get fullName() {
-    return `${this._firstName} ${this._lastName}`;
-  }
-
-  set fullName(name) {
-    const [firstName, lastName] = name.split(' ');
-    this._firstName = firstName;
-    this._lastName = lastName;
-  }
-}
+const myTriangle2 = new Triangle(3, 4);
+console.log(myTriangle2.getArea());
+console.log(myTriangle2.getHypotenuse());
 
 /**
- * Public fields
+ * Bank Account Class
+ * - Properties
+ *  - Balance (defaults to 0 if not provided)
+ *  - Account holder
+ *  - Account number
+ * - Methods
+ *  - deposit(amount) -> increase balance by amt
+ *  - withdraw(amount) -> decrease balance by amt
  */
 
-class Cat {
-  numLegs = 4;
-  hasTail = true;
+class BankAccount {
+  constructor(accountHolder, accountNumber, balance = 0) {
+    this.balance = balance;
+    this.accountHolder = accountHolder;
+    this.accountNumber = accountNumber;
 
-  constructor(name) {
-    this.name = name;
+    if (!Number.isFinite(balance)) {
+      throw new Error('Balance must be a number ', balance);
+    }
+
+    if (this.accountHolder === '' || typeof this.accountHolder !== 'string') {
+      throw new Error(
+        'Account holder must be a non-empty string',
+        accountHolder
+      );
+    }
+
+    if (!Number.isFinite(this.accountNumber) || this.accountNumber <= 0) {
+      throw new Error(
+        'Account number must be a positive number',
+        accountNumber
+      );
+    }
   }
 
-  addLegs() {
-    this.numLegs += 4;
-  }
-}
-
-/**
- * Private Fields
- */
-class Circle2 {
-  #radius;
-
-  constructor(radius) {
-    this.#radius = radius;
+  deposit(amount) {
+    this.balance += amount;
   }
 
-  get radius() {
-    return this.#radius;
+  withdraw(amount) {
+    if (amount > this.balance) {
+      throw new Error('Insufficient funds', amount);
+    }
+    this.balance -= amount;
   }
 
-  set radius(value) {
-    this.#radius = value;
-  }
-}
-
-/**
- * Private Class
- */
-class MyClass {
-  #privateMethod() {
-    console.log('I am private');
-  }
-
-  publicMethod() {
-    console.log('I am a private method');
-  }
-
-  indirectlyAccessPrivateMethod() {
-    return this.#privateMethod();
-  }
-}
-
-const myClass = new MyClass();
-myClass.publicMethod();
-myClass.indirectlyAccessPrivateMethod();
-
-/**
- * Static initialization block
- */
-class MyStaticBlock {
-  static {
-    console.log('runs once');
-  }
-  static fun() {
-    console.log('I ran');
+  getBalance() {
+    return this.balance;
   }
 }
